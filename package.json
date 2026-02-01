@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "publisher": "fjara",
     "engines": {
-        "vscode": "^1.105.0"
+        "vscode": "^1.45.0"
     },
     "license": "GPL-3.0",
     "icon": "icon.png",
@@ -286,7 +286,7 @@
     "devDependencies": {
         "@types/mocha": "^10.0.10",
         "@types/node": "22.x",
-        "@types/vscode": "^1.106.1",
+        "@types/vscode": "1.45.0",
         "@typescript-eslint/eslint-plugin": "^8.45.0",
         "@typescript-eslint/parser": "^8.45.0",
         "@vscode/test-cli": "^0.0.12",
@@ -295,6 +295,7 @@
         "typescript": "^5.9.3"
     },
     "dependencies": {
+        "@vscode/vsce": "3.7.1",
         "yarn": "^1.22.22"
     }
 }
