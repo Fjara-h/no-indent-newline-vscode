@@ -1,0 +1,23 @@
+// Down - First character in the document - Cursor at 0,0
+enable:true
+position:start
+invert:false
+merge:false
+filter:true
+!{({0,0}, {0,0})}
+@{({1,0}, {1,0})}
+###
+test = {
+    qwerty
+    asdfgh
+    zxcvbn
+}
+###
+%%%
+
+test = {
+    qwerty
+    asdfgh
+    zxcvbn
+}
+%%%

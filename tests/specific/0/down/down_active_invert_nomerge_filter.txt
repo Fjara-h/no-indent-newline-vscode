@@ -1,0 +1,15 @@
+// Down - Empty document - Cursor at 0,0
+enable:true
+position:active
+invert:true
+merge:false
+filter:true
+!{({0,0}, {0,0})}
+@{({1,0}, {1,0})}
+###
+
+###
+%%%
+
+
+%%%

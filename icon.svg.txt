@@ -1,0 +1,19 @@
+<svg height="500" width="500"  xmlns="http://www.w3.org/2000/svg">
+    <rect height="100%" width="100%" />
+    <style>
+        tspan {
+            font-size: 72px;
+            font-family:Noto Sans;
+            letter-spacing:0;
+            word-spacing:0;
+            kerning:0;
+            stroke-width:1;
+        }
+    </style>
+    <text xml:space="preserve" x="48px" y="40px" fill="#DDDDDD">
+        <tspan xml:space="preserve" x="0px" dx="48px" dy="96px">····No {</tspan>
+        <tspan xml:space="preserve" x="0px" dx="48px" dy="96px">········Indent</tspan>
+        <tspan xml:space="preserve" x="0px" dx="48px" dy="96px">Newline</tspan>
+        <tspan xml:space="preserve" x="0px" dx="48px" dy="96px">····}</tspan>
+    </text>
+</svg>

@@ -1,0 +1,23 @@
+// Up - Last character in the document - Cursor at 4,1
+enable:true
+position:anchor
+invert:true
+merge:false
+filter:false
+!{({4,1}, {4,1})}
+@{({4,0}, {4,0})}
+###
+test = {
+    qwerty
+    asdfgh
+    zxcvbn
+}
+###
+%%%
+test = {
+    qwerty
+    asdfgh
+    zxcvbn
+
+}
+%%%

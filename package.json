@@ -1,0 +1,300 @@
+{
+    "name": "no-indent-newline",
+    "displayName": "No Indent Newline",
+    "description": "Commands to insert non-indented newlines.",
+    "version": "1.0.0",
+    "publisher": "fjara",
+    "engines": {
+        "vscode": "^1.105.0"
+    },
+    "license": "GPL-3.0",
+    "icon": "icon.png",
+    "galleryBanner": {
+        "color": "#667788",
+        "theme": "dark"
+    },
+    "bugs": {
+        "url": "https://github.com/Fjara-h/no-indent-newline-vscode/issues/",
+        "email": "robuhde@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Fjara-h/no-indent-newline-vscode.git"
+    },
+    "homepage": "https://github.com/Fjara-h/no-indent-newline-vscode/",
+    "categories": [
+        "Other"
+    ],
+    "keywords": [
+        "indent",
+        "nonindent",
+        "unindent",
+        "newline",
+        "command"
+    ],
+    "activationEvents": [],
+    "main": "./out/src/extension",
+    "contributes": {
+        "configuration": [
+            {
+                "order": 0,
+                "id": "before",
+                "title": "Before",
+                "properties": {
+                    "no-indent-newline.before.enable": {
+                        "order": 0,
+                        "type": "boolean",
+                        "description": "Enables the command and keybind to insert a non-indented newline on the previous line.",
+                        "default": true
+                    },
+                    "no-indent-newline.before.invert": {
+                        "order": 1,
+                        "type": "boolean",
+                        "description": "Invert the default ordering - With multiple selections on the same line, the left-most selection is placed at the previous.",
+                        "default": false
+                    },
+                    "no-indent-newline.before.position": {
+                        "order": 2,
+                        "type": "string",
+                        "description": "Selection position to compare and use as the focal point of calculations. Start, Active, Anchor, End.",
+                        "default": "end",
+                        "enum": [
+                            "active",
+                            "anchor",
+                            "start",
+                            "end"
+                        ],
+                        "markdownEnumDescriptions": [
+                            "A selection's active cursor position",
+                            "A selection's anchor position, opposite the active cursor",
+                            "A selection's beginning position",
+                            "A selection's ending position"
+                        ],
+                        "enumItemLabels": [
+                            "Selection active cursor",
+                            "Selection anchor",
+                            "Selection start",
+                            "Selection end"
+                        ]
+                    }
+                }
+            },
+            {
+                "order": 1,
+                "id": "up",
+                "title": "Up",
+                "properties": {
+                    "no-indent-newline.up.enable": {
+                        "order": 0,
+                        "type": "boolean",
+                        "description": "Enables the command and keybind to insert a non-indented newline on the previous line deleting the selection and moving text after it, with it.",
+                        "default": true
+                    },
+                    "no-indent-newline.up.invert": {
+                        "order": 1,
+                        "type": "boolean",
+                        "description": "Invert the default ordering - With multiple selections on the same line, the left-most selection is placed at the previous.",
+                        "default": false
+                    },
+                    "no-indent-newline.up.position": {
+                        "order": 2,
+                        "type": "string",
+                        "description": "Selection position to compare and use as the focal point of calculations. Start, Active, Anchor, End.",
+                        "default": "end",
+                        "enum": [
+                            "active",
+                            "anchor",
+                            "start",
+                            "end"
+                        ],
+                        "markdownEnumDescriptions": [
+                            "A selection's active cursor position",
+                            "A selection's anchor position, opposite the active cursor",
+                            "A selection's beginning position",
+                            "A selection's ending position"
+                        ],
+                        "enumItemLabels": [
+                            "Selection active cursor",
+                            "Selection anchor",
+                            "Selection start",
+                            "Selection end"
+                        ]
+                    },
+                    "no-indent-newline.up.filter": {
+                        "order": 3,
+                        "type": "boolean",
+                        "description": "Filter selections similar to how VSCode does before doing operations.",
+                        "default": false
+                    }
+                }
+            },
+            {
+                "order": 2,
+                "id": "down",
+                "title": "Down",
+                "properties": {
+                    "no-indent-newline.down.enable": {
+                        "order": 0,
+                        "type": "boolean",
+                        "description": "Enables the command and keybind to insert a non-indented newline on the next line deleting the selection and moving text after it, with it.",
+                        "default": true
+                    },
+                    "no-indent-newline.down.invert": {
+                        "order": 1,
+                        "type": "boolean",
+                        "description": "Invert the default ordering - With multiple selections on the same line, the left-most selection is placed at the next.",
+                        "default": false
+                    },
+                    "no-indent-newline.down.position": {
+                        "order": 2,
+                        "type": "string",
+                        "description": "Selection position to compare and use as the focal point of calculations. Start, Active, Anchor, End.",
+                        "default": "end",
+                        "enum": [
+                            "active",
+                            "anchor",
+                            "start",
+                            "end"
+                        ],
+                        "markdownEnumDescriptions": [
+                            "A selection's active cursor position",
+                            "A selection's anchor position, opposite the active cursor",
+                            "A selection's beginning position",
+                            "A selection's ending position"
+                        ],
+                        "enumItemLabels": [
+                            "Selection active cursor",
+                            "Selection anchor",
+                            "Selection start",
+                            "Selection end"
+                        ]
+                    },
+                    "no-indent-newline.down.filter": {
+                        "order": 3,
+                        "type": "boolean",
+                        "description": "Filter selections similar to how VSCode does before doing operations.",
+                        "default": false
+                    }
+                }
+            },
+            {
+                "order": 3,
+                "id": "after",
+                "title": "After",
+                "properties": {
+                    "no-indent-newline.after.enable": {
+                        "order": 0,
+                        "type": "boolean",
+                        "description": "Enables the command and keybind to insert a non-indented newline on the next line.",
+                        "default": true
+                    },
+                    "no-indent-newline.after.invert": {
+                        "order": 1,
+                        "type": "boolean",
+                        "description": "Invert the default ordering - With multiple selections on the same line, the left-most selection is placed at the next.",
+                        "default": false
+                    },
+                    "no-indent-newline.after.position": {
+                        "order": 2,
+                        "type": "string",
+                        "description": "Selection position to compare and use as the focal point of calculations. Start, Active, Anchor, End.",
+                        "default": "end",
+                        "enum": [
+                            "active",
+                            "anchor",
+                            "start",
+                            "end"
+                        ],
+                        "markdownEnumDescriptions": [
+                            "A selection's active cursor position",
+                            "A selection's anchor position, opposite the active cursor",
+                            "A selection's beginning position",
+                            "A selection's ending position"
+                        ],
+                        "enumItemLabels": [
+                            "Selection active cursor",
+                            "Selection anchor",
+                            "Selection start",
+                            "Selection end"
+                        ]
+                    }
+                }
+            }
+        ],
+        "commands": [
+            {
+                "command": "no-indent-newline.before",
+                "title": "Insert Non-Indented Newline Before"
+            },
+            {
+                "command": "no-indent-newline.up",
+                "title": "Insert Non-Indented Newline Up"
+            },
+            {
+                "command": "no-indent-newline.down",
+                "title": "Insert Non-Indented Newline Down"
+            },
+            {
+                "command": "no-indent-newline.after",
+                "title": "Insert Non-Indented Newline After"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "no-indent-newline.before",
+                "key": "ctrl+shift+alt+meta+enter",
+                "win": "ctrl+shift+alt+win+enter",
+                "linux": "ctrl+shift+alt+meta+enter",
+                "mac": "cmd+shift+alt+meta+enter",
+                "when": "editorTextFocus && !editorReadonly && config.no-indent-newline.before.enable && config.no-indent-newline.before.enable"
+            },
+            {
+                "command": "no-indent-newline.up",
+                "key": "ctrl+alt+meta+enter",
+                "win": "ctrl+alt+win+enter",
+                "linux": "ctrl+alt+meta+enter",
+                "mac": "cmd+alt+meta+enter",
+                "when": "editorTextFocus && !editorReadonly && config.no-indent-newline.up.enable && config.no-indent-newline.up.enable"
+            },
+            {
+                "command": "no-indent-newline.down",
+                "key": "ctrl+meta+enter",
+                "win": "ctrl+win+enter",
+                "linux": "ctrl+meta+enter",
+                "mac": "cmd+meta+enter",
+                "when": "editorTextFocus && !editorReadonly && config.no-indent-newline.down.enable && config.no-indent-newline.down.enable"
+            },
+            {
+                "command": "no-indent-newline.after",
+                "key": "ctrl+shift+meta+enter",
+                "win": "ctrl+shift+win+enter",
+                "linux": "ctrl+shift+meta+enter",
+                "mac": "cmd+shift+meta+enter",
+                "when": "editorTextFocus && !editorReadonly && config.no-indent-newline.after.enable && config.no-indent-newline.after.enable"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src",
+        "test": "vscode-test",
+        "build": "npm install && npm run lint && tsc -p ./"
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.10",
+        "@types/node": "22.x",
+        "@types/vscode": "^1.106.1",
+        "@typescript-eslint/eslint-plugin": "^8.45.0",
+        "@typescript-eslint/parser": "^8.45.0",
+        "@vscode/test-cli": "^0.0.12",
+        "@vscode/test-electron": "^2.5.2",
+        "eslint": "^9.36.0",
+        "typescript": "^5.9.3"
+    },
+    "dependencies": {
+        "yarn": "^1.22.22"
+    }
+}
