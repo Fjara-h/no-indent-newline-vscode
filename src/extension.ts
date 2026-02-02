@@ -1,21 +1,22 @@
 "use strict";
-import * as vscode from "vscode";
+import * as vscode from 'vscode';
 
-const author_name = "fjara";
-const extension_title = "No Indent Newline";
-export const extension_name = "no-indent-newline";
-export const extension_id = author_name + "." + extension_name;
-const extension_url = "https://github.com/Fjara-h/no-indent-newline-vscode";
+const author_name = `fjara`;
+const extension_title = `No Indent Newline`;
+export const extension_name = `no-indent-newline`;
+export const extension_id = `${author_name}.${extension_name}`;
+const extension_url = `https://github.com/Fjara-h/no-indent-newline-vscode`;
 
 const extension_major_version = 1;
 const extension_minor_version = 0;
-const extension_revision_version = 0;
+const extension_revision_version = 1;
+const extension_version = `${extension_major_version}.${extension_minor_version}.${extension_revision_version}`;
 
 export const debug_enabled = false;
 export const manual_testing_enabled = false;
 
-const editor_section_setting_id = "editor";
-const merge_overlapping_cursor_setting_id = "multiCursorMergeOverlapping";
+const editor_section_setting_id = `editor`;
+const merge_overlapping_cursor_setting_id = `multiCursorMergeOverlapping`;
 
 /** Icon generation
  * Import icon.svg to Krita at 100ppi
@@ -30,10 +31,10 @@ const merge_overlapping_cursor_setting_id = "multiCursorMergeOverlapping";
  * @enum
  */
 export enum CommandNameEnum {
-    before = "before",
-    up = "up",
-    down = "down",
-    after = "after"
+    before = `before`,
+    up = `up`,
+    down = `down`,
+    after = `after`
 }
 
 /**
@@ -41,10 +42,10 @@ export enum CommandNameEnum {
  * @enum
  */
 export enum CommandEnum {
-    before = extension_name + "." + CommandNameEnum.before,
-    up = extension_name + "." + CommandNameEnum.up,
-    down = extension_name + "." + CommandNameEnum.down,
-    after = extension_name + "." + CommandNameEnum.after
+    before = `${extension_name}.${CommandNameEnum.before}`,
+    up = `${extension_name}.${CommandNameEnum.up}`,
+    down = `${extension_name}.${CommandNameEnum.down}`,
+    after = `${extension_name}.${CommandNameEnum.after}`
 }
 
 /**
@@ -52,10 +53,10 @@ export enum CommandEnum {
  * @enum
  */
 export enum SettingEnum {
-    enable = "enable",
-    invert = "invert",
-    position = "position",
-    filter = "filter"
+    enable = `enable`,
+    invert = `invert`,
+    position = `position`,
+    filter = `filter`
 }
 
 /**
@@ -63,10 +64,10 @@ export enum SettingEnum {
  * @enum
  */
 export enum PositionEnum {
-    active = "active",
-    anchor = "anchor",
-    start = "start",
-    end = "end"
+    active = `active`,
+    anchor = `anchor`,
+    start = `start`,
+    end = `end`
 }
 
 /**
@@ -74,10 +75,10 @@ export enum PositionEnum {
  * @enum
  */
 export enum PositionComplementEnum {
-    active = "anchor",
-    anchor = "active",
-    start = "end",
-    end = "start"
+    active = `anchor`,
+    anchor = `active`,
+    start = `end`,
+    end = `start`
 }
 
 /**
@@ -126,7 +127,6 @@ export const CommandSettingsDefault: Record<string, CommandSettings> = {
    * A promise that will resolve when this extension has been activated
    *
    * @param context - provided by vscode
-   * 
    */
 export function activate(context: vscode.ExtensionContext) {
     /**
@@ -198,7 +198,7 @@ async function run_command_scaffolding(editor: vscode.TextEditor, command_id: Co
     if (debug_enabled && manual_testing_enabled) {
         print_selections(editor.selections);
         console.log(editor.selections);
-        if (await manual_testing(editor, command_id) === "initialized_manual_testing") {
+        if (await manual_testing(editor, command_id) === `initialized_manual_testing`) {
             return;
         }
         print_selections(editor.selections);
@@ -207,17 +207,17 @@ async function run_command_scaffolding(editor: vscode.TextEditor, command_id: Co
 
     const ext_settings: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration(extension_name);
 
-    const command_name: CommandNameEnum = CommandNameEnum[command_id.split('.')[1] as keyof typeof CommandNameEnum];
+    const command_name: CommandNameEnum = CommandNameEnum[command_id.split(`.`)[1] as keyof typeof CommandNameEnum];
 
-    const is_enabled: boolean = ext_settings.get(command_name + "." + SettingEnum.enable, CommandSettingsDefault[command_id][SettingEnum.enable]);
+    const is_enabled: boolean = ext_settings.get(`${command_name}.${SettingEnum.enable}`, CommandSettingsDefault[command_id][SettingEnum.enable]);
     const is_merge: boolean = vscode.workspace.getConfiguration(editor_section_setting_id).get(merge_overlapping_cursor_setting_id, false);
 
     if (is_enabled && is_extant(editor.selections)) {
-        const position_type: PositionEnum = ext_settings.get(command_name + "." + SettingEnum.position, CommandSettingsDefault[command_id][SettingEnum.position]);
-        const is_inverted: boolean = ext_settings.get(command_name + "." + SettingEnum.invert, CommandSettingsDefault[command_id][SettingEnum.invert]);
+        const position_type: PositionEnum = ext_settings.get(`${command_name}.${SettingEnum.position}`, CommandSettingsDefault[command_id][SettingEnum.position]);
+        const is_inverted: boolean = ext_settings.get(`${command_name}.${SettingEnum.invert}`, CommandSettingsDefault[command_id][SettingEnum.invert]);
         const is_postfix: boolean = (command_id === CommandEnum.after || command_id === CommandEnum.down);
         const is_destructive: boolean = (command_id === CommandEnum.up || command_id === CommandEnum.down);
-        const is_filtered: boolean = is_destructive ? ext_settings.get(command_name + "." + SettingEnum.filter, CommandSettingsDefault[command_id][SettingEnum.filter]) : false;
+        const is_filtered: boolean = is_destructive ? ext_settings.get(`${command_name}.${SettingEnum.filter}`, CommandSettingsDefault[command_id][SettingEnum.filter]) : false;
 
         const selections_to_use: readonly vscode.Selection[] = (is_filtered ? filter_invalid_overlapping_ranges(editor.selections) : editor.selections);
 
@@ -272,7 +272,7 @@ async function run_command_scaffolding(editor: vscode.TextEditor, command_id: Co
                 // Calculated final* location for text insertion location  - *inverted order not applied yet
                 const position_line = selection[position_type].line;
                 const position_line_end_char = editor.document.lineAt(position_line).range.end.character; //?  Illegal value for `line` in lineAT
-                text_new[index] = { position: new vscode.Position(position_line, (is_postfix ? position_line_end_char : 0)), text: '\n' };
+                text_new[index] = { position: new vscode.Position(position_line, (is_postfix ? position_line_end_char : 0)), text: `\n` };
 
                 if (is_destructive && (is_merge || (!is_merge && is_filtered))) {
                     clumps.push({ selection: selection, owner_index: index, });
@@ -329,10 +329,10 @@ async function run_command_scaffolding(editor: vscode.TextEditor, command_id: Co
                     line_end_character = next_clump.selection.start.character;
                 }
                 const text_range = new vscode.Selection(clump.selection.end.line, clump.selection.end.character, clump.selection.end.line, line_end_character);
-                const text_content = editor.document.getText(text_range) || '';
+                const text_content = editor.document.getText(text_range) || ``;
                 if (!text_range.isEmpty) {
                     for (const range of split_selection_by_line(text_range, editor)) {
-                        edit.replace(range, '');
+                        edit.replace(range, ``);
                     }
                 }
 
@@ -342,11 +342,11 @@ async function run_command_scaffolding(editor: vscode.TextEditor, command_id: Co
                 );
                 text_new[clump.owner_index] = {
                     position: new_text_pos,
-                    text: (is_postfix ? '\n' + text_content : text_content + '\n')
+                    text: (is_postfix ? `\n${text_content}` : `${text_content}\n`)
                 };
                 if (!clump.selection.isEmpty) {
                     for (const range of split_selection_by_line(clump.selection, editor)) {
-                        edit.replace(range, '');
+                        edit.replace(range, ``);
                     }
                 }
             }
@@ -513,9 +513,9 @@ function print_selections(selections: vscode.Selection[] | readonly vscode.Selec
     if (debug_enabled) {
         let str: string[] = [];
         for (let selection of selections) {
-            str.push("({" + selection.anchor.line + "," + selection.anchor.character + "},{" + selection.active.line + "," + selection.active.character + "})");
+            str.push(`({${selection.anchor.line},${selection.anchor.character}},{${selection.active.line},${selection.active.character}})`);
         }
-        console.log(str.join(', '));
+        console.log(str.join(`, `));
     }
 }
 
@@ -530,7 +530,7 @@ function print_selections(selections: vscode.Selection[] | readonly vscode.Selec
    */
 async function manual_testing(editor: vscode.TextEditor, command_id: CommandEnum): Promise<string> {
     if (!debug_enabled && !manual_testing_enabled) {
-        return new Promise((resolve) => { resolve("not_running_manual_testing"); });
+        return new Promise((resolve) => { resolve(`not_running_manual_testing`); });
     }
 
     // Note, user __must__ copy and paste text_fixture into the document manually otherwise before running command.
@@ -569,10 +569,10 @@ async function manual_testing(editor: vscode.TextEditor, command_id: CommandEnum
     const enable = true;
     //const enable = false;
 
-    const position = "active";
-    //const position = "anchor";
-    //const position = "end";
-    //const position = "start";
+    const position = `active`;
+    //const position = `anchor`;
+    //const position = `end`;
+    //const position = `start`;
 
     const invert = false;
     //const invert = true;
@@ -606,13 +606,13 @@ async function manual_testing(editor: vscode.TextEditor, command_id: CommandEnum
     // Not a great condition way to do this.
     if (editor.document.getText() === text_fixture && (!is_selections_equal || editor.selections.length > 1)) {
         editor.selections = selection_fixture;
-        return new Promise((resolve) => { resolve("initialized_manual_testing"); });
+        return new Promise((resolve) => { resolve(`initialized_manual_testing`); });
     } else {
-        const command_name: CommandNameEnum = CommandNameEnum[command_id.split('.')[1] as keyof typeof CommandNameEnum];
-        const inv_t = (invert) ? "invert" : "noinvert";
-        const merge_t = (merge) ? "merge" : "nomerge";
-        const filter_t = (filter) ? "_filter" : "_nofilter";
+        const command_name: CommandNameEnum = CommandNameEnum[command_id.split(`.`)[1] as keyof typeof CommandNameEnum];
+        const inv_t = (invert) ? `invert` : `noinvert`;
+        const merge_t = (merge) ? `merge` : `nomerge`;
+        const filter_t = (filter) ? `_filter` : `_nofilter`;
         console.log(`${command_name}_${position}_${inv_t}_${merge_t}${filter_t}`);
-        return new Promise((resolve) => { resolve("skipping_initialize_to_run_scaffold"); });
+        return new Promise((resolve) => { resolve(`skipping_initialize_to_run_scaffold`); });
     }
 }

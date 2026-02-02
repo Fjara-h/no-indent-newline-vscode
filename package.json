@@ -2,7 +2,7 @@
     "name": "no-indent-newline",
     "displayName": "No Indent Newline",
     "description": "Commands to insert non-indented newlines.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publisher": "fjara",
     "engines": {
         "vscode": "^1.45.0"

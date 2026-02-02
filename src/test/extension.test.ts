@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import * as vscode from "vscode";
+import * as vscode from 'vscode';
 import * as path from 'path';
 import fs from 'fs';
 import { CommandEnum, CommandNameEnum, SettingEnum, PositionEnum, extension_name, extension_id, debug_enabled, manual_testing_enabled } from "../extension";
@@ -19,7 +19,7 @@ import { CommandEnum, CommandNameEnum, SettingEnum, PositionEnum, extension_name
 const FILE_SELECTION_REG = /(\/\/[^\n]*)(?:\n*)(?:enable:)([^\n]*)(?:\n*)(?:position:)([^\n]*)(?:\n*)(?:invert:)([^\n]*)(?:\n*)(?:merge:)([^\n]*)(?:\n*)(?:filter:)([^\n]*)(?:\n*)(?:!)([^\n]*)(?:\n*)(?:@)([^\n]*)(?:\n*)(?:###\n)([^#]*)(?:\n###)(?:\n*)(?:%%%\n)([^%]*)(?:\n%%%)/;
 
 // This is the text used in all empty tests
-const empty_fixture = "";
+const empty_fixture = ``;
 
 // This is the text used in all non-empty tests
 const text_fixture = `test = {
@@ -70,29 +70,29 @@ const merged_filtered_selection_visualization = `te[st)| = {
  * @enum
  */
 enum TestTypeEnum {
-    broad = "broad",
-    specific0 = "specific0",
-    specific1 = "specific1",
-    specific2 = "specific2"
+    broad = `broad`,
+    specific0 = `specific0`,
+    specific1 = `specific1`,
+    specific2 = `specific2`
 }
 
-suite('Extension Test Suite', () => {
-    vscode.window.showInformationMessage('Start tests');
+suite(`Extension Test Suite`, () => {
+    vscode.window.showInformationMessage(`Start tests`);
     suiteTeardown(() => {
-        vscode.window.showInformationMessage('All tests done!');
+        vscode.window.showInformationMessage(`All tests done!`);
     });
 
     /**
      * Test that unit testing is working
      */
-    test('Test suite core works', () => {
+    test(`Test suite core works`, () => {
         assert.strictEqual(true, true);
     });
 
     /**
      * Test extension exists
      */
-    test('extension exists', async () => {
+    test(`extension exists`, async () => {
         const ext = vscode.extensions.getExtension(extension_id);
         assert.ok(ext !== null && ext !== undefined);
     });
@@ -100,7 +100,7 @@ suite('Extension Test Suite', () => {
     /**
      * Test extension does not start when VSCode starts
      */
-    test("extension not loaded by default at start", () => {
+    test(`extension not loaded by default at start`, () => {
         const started = vscode.extensions.getExtension(extension_id)?.isActive;
         assert.equal(started, false);
     });
@@ -108,7 +108,7 @@ suite('Extension Test Suite', () => {
     /**
      * Test settings exist and are accessible
      */
-    test("settings extant", async () => {
+    test(`settings extant`, async () => {
         const local_settings = vscode.workspace.getConfiguration(extension_name);
         assert.notStrictEqual(local_settings, undefined);
     });
@@ -116,14 +116,14 @@ suite('Extension Test Suite', () => {
     /**
      * Make sure manual_testing is disabled :)
      */
-    test("manual testing disabled", async () => {
+    test(`manual testing disabled`, async () => {
         assert.strictEqual(manual_testing_enabled, false, `manual_testing_enabled: ${manual_testing_enabled}, debug printing: ${debug_enabled}`);
     });
 
     /**
      * Test each command when disabled
      */
-    test("commands do not run when disabled", async () => {
+    test(`commands do not run when disabled`, async () => {
         const enable = false;
         for (const command in CommandNameEnum) {
             await run_empty_test(enable, command as CommandNameEnum);
@@ -133,7 +133,7 @@ suite('Extension Test Suite', () => {
     /**
      * Test each command when enabled
      */
-    test("commands run when enabled on empty doc.", async () => {
+    test(`commands run when enabled on empty doc.`, async () => {
         const enable = true;
         for (const command in CommandNameEnum) {
             await run_empty_test(enable, command as CommandNameEnum);
@@ -147,67 +147,67 @@ suite('Extension Test Suite', () => {
     * filter (True, False)
     * multiCursorMergeOverlapping (True, False)
     */
-    test("after - broad test", async () => {
+    test(`after - broad test`, async () => {
         await run_test(TestTypeEnum.broad, CommandNameEnum.after);
     });
 
-    test("after - specific test 0", async () => {
+    test(`after - specific test 0`, async () => {
         await run_test(TestTypeEnum.specific1, CommandNameEnum.after);
     })
 
-    test("after - specific test 1", async () => {
+    test(`after - specific test 1`, async () => {
         await run_test(TestTypeEnum.specific1, CommandNameEnum.after);
     })
 
-    test("after - specific test 2", async () => {
+    test(`after - specific test 2`, async () => {
         await run_test(TestTypeEnum.specific2, CommandNameEnum.after);
     })
 
-    test("before - broad test", async () => {
+    test(`before - broad test`, async () => {
         await run_test(TestTypeEnum.broad, CommandNameEnum.before);
     });
 
-    test("before - specific test 0", async () => {
+    test(`before - specific test 0`, async () => {
         await run_test(TestTypeEnum.specific0, CommandNameEnum.before);
     })
 
-    test("before - specific test 1", async () => {
+    test(`before - specific test 1`, async () => {
         await run_test(TestTypeEnum.specific1, CommandNameEnum.before);
     })
 
-    test("before - specific test 2", async () => {
+    test(`before - specific test 2`, async () => {
         await run_test(TestTypeEnum.specific2, CommandNameEnum.before);
     })
 
-    test("down - broad test", async () => {
+    test(`down - broad test`, async () => {
         await run_test(TestTypeEnum.broad, CommandNameEnum.down);
     });
 
-    test("down - specific test 0", async () => {
+    test(`down - specific test 0`, async () => {
         await run_test(TestTypeEnum.specific0, CommandNameEnum.down);
     })
 
-    test("down - specific test 1", async () => {
+    test(`down - specific test 1`, async () => {
         await run_test(TestTypeEnum.specific1, CommandNameEnum.down);
     })
 
-    test("down - specific test 2", async () => {
+    test(`down - specific test 2`, async () => {
         await run_test(TestTypeEnum.specific2, CommandNameEnum.down);
     })
 
-    test("up - broad test", async () => {
+    test(`up - broad test`, async () => {
         await run_test(TestTypeEnum.broad, CommandNameEnum.up);
     });
 
-    test("up - specific test 0", async () => {
+    test(`up - specific test 0`, async () => {
         await run_test(TestTypeEnum.specific0, CommandNameEnum.up);
     })
 
-    test("up - specific test 1", async () => {
+    test(`up - specific test 1`, async () => {
         await run_test(TestTypeEnum.specific1, CommandNameEnum.up);
     })
 
-    test("up - specific test 2", async () => {
+    test(`up - specific test 2`, async () => {
         await run_test(TestTypeEnum.specific2, CommandNameEnum.up);
     })
 
@@ -232,13 +232,13 @@ suite('Extension Test Suite', () => {
             await extension_config.update(SettingEnum.filter, filter, true);
         }
 
-        const editor_section_setting_id = "editor";
-        const merge_overlapping_cursor_setting_id = "multiCursorMergeOverlapping";
+        const editor_section_setting_id = `editor`;
+        const merge_overlapping_cursor_setting_id = `multiCursorMergeOverlapping`;
         await vscode.workspace.getConfiguration(editor_section_setting_id).update(merge_overlapping_cursor_setting_id, merge, true);
         // Always render newline to avoid differences
-        const render_final_newline_setting_id = "renderFinalNewline";
-        await vscode.workspace.getConfiguration(editor_section_setting_id).update(render_final_newline_setting_id, "on", true);
-        return new Promise((resolve) => { resolve("settings_resolved"); });
+        const render_final_newline_setting_id = `renderFinalNewline`;
+        await vscode.workspace.getConfiguration(editor_section_setting_id).update(render_final_newline_setting_id, `on`, true);
+        return new Promise((resolve) => { resolve(`settings_resolved`); });
     }
 
     /**
@@ -251,7 +251,7 @@ suite('Extension Test Suite', () => {
     function configure_selections(str: string, reverse = false): vscode.Selection[] {
         let selections: vscode.Selection[] = [];
         // Strip all whitespace
-        str = str.replace(/\s/g, "");
+        str = str.replace(/\s/g, ``);
 
         const SELECTION_REG = /(\([^\)]*\))/g;
         const selection_matches = str.match(SELECTION_REG);
@@ -313,9 +313,9 @@ suite('Extension Test Suite', () => {
             assert.ok(is_same, `disabled ${command} should never modify the document`);
         }
 
-        await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+        await vscode.commands.executeCommand(`workbench.action.closeActiveEditor`);
 
-        return new Promise((resolve) => { resolve("test_resolved"); });
+        return new Promise((resolve) => { resolve(`test_resolved`); });
     }
 
     async function run_test(test_type: TestTypeEnum, command: CommandNameEnum) {
@@ -329,27 +329,27 @@ suite('Extension Test Suite', () => {
                         await update_settings(command_id, enable, invert, position as PositionEnum, merge, filter);
 
                         const is_destructive: boolean = (command === CommandNameEnum.up || command === CommandNameEnum.down);
-                        const invert_string: string = (invert ? "invert" : "noinvert");
-                        const merge_string: string = (merge ? "merge" : "nomerge");
-                        const filter_string: string = (is_destructive ? (filter ? "_filter" : "_nofilter") : "");
+                        const invert_string: string = (invert ? `invert` : `noinvert`);
+                        const merge_string: string = (merge ? `merge` : `nomerge`);
+                        const filter_string: string = (is_destructive ? (filter ? `_filter` : `_nofilter`) : ``);
                         const file_name = `${command}_${position}_${invert_string}_${merge_string}${filter_string}.txt`;
 
-                        const test_subdir = ((test_type === TestTypeEnum.broad) ? "broad" : "specific");
-                        const text_subsubdir = ((test_type === TestTypeEnum.broad) ? "" : test_type.at(-1)!);
+                        const test_subdir = ((test_type === TestTypeEnum.broad) ? `broad` : `specific`);
+                        const text_subsubdir = ((test_type === TestTypeEnum.broad) ? `` : test_type.at(-1)!);
 
-                        const file = path.resolve(__dirname, '../../../tests', test_subdir, text_subsubdir, command, file_name)
-                        const file_contents: string = fs.readFileSync(file, { encoding: 'utf-8' });
+                        const file = path.resolve(__dirname, `../../../tests`, test_subdir, text_subsubdir, command, file_name)
+                        const file_contents: string = fs.readFileSync(file, { encoding: `utf-8` });
                         const matches: RegExpMatchArray | null = file_contents.match(FILE_SELECTION_REG);
                         if (matches === null || matches === undefined) {
                             assert.fail(`Test file ${file} does not exist or data could not be read from it.`)
                         }
 
                         const file_description: string = matches[1];
-                        const file_enable: boolean = (matches[2] === "true");
+                        const file_enable: boolean = (matches[2] === `true`);
                         const file_position: PositionEnum = matches[3] as PositionEnum;
-                        const file_invert: boolean = (matches[4] === "true");
-                        const file_merge: boolean = (matches[5] === "true");
-                        const file_filter: boolean = (matches[6] === "true");
+                        const file_invert: boolean = (matches[4] === `true`);
+                        const file_merge: boolean = (matches[5] === `true`);
+                        const file_filter: boolean = (matches[6] === `true`);
                         const file_selection_input: vscode.Selection[] = configure_selections(matches[7]);
                         const file_selection_expected: vscode.Selection[] = configure_selections(matches[8]);
                         const file_text_input: string = matches[9];
@@ -359,8 +359,8 @@ suite('Extension Test Suite', () => {
                         assert.strictEqual(file_position, position, `non-equal position in ${file}`);
                         assert.strictEqual(file_invert, invert, `non-equal invert in ${file}`);
                         assert.strictEqual(file_merge, merge, `non-equal merge in ${file}`);
-                        // Non-destructive commands always set filter to false, don't check it for them
-                        if ((is_destructive && filter_string === "") || (!is_destructive && filter_string !== "")) {
+                        // Non-destructive commands always set filter to false, do not check it for them
+                        if ((is_destructive && filter_string === ``) || (!is_destructive && filter_string !== ``)) {
                             assert.strictEqual(file_filter, filter, `non-equal filter in ${file}`);
                         }
 
@@ -382,9 +382,9 @@ suite('Extension Test Suite', () => {
                         for (let i = 0; i < selections_new.length - 1; i++) {
                             are_selections_equal = selections_new[i].isEqual(file_selection_expected[i]);
                             if (!are_selections_equal) {
-                                console.log("sel_new");
+                                console.log(`sel_new`);
                                 print_selections(selections_new);
-                                console.log("sel_exp");
+                                console.log(`sel_exp`);
                                 print_selections(file_selection_expected);
                                 break;
                             }
@@ -392,26 +392,19 @@ suite('Extension Test Suite', () => {
                         assert.ok(are_selections_equal, `non-equal modified selections for ${file}`);
 
                         // Close the file
-                        await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
-                        /*
-                        const myFile = document.uri;
-                        const tabs: vscode.Tab[] = vscode.window.tabGroups.all.map(tg => tg.tabs).flat();
-                        const index = tabs.findIndex(tab => tab.input instanceof vscode.TabInputText && tab.input.uri.path === myFile.path);
-                        if (index !== -1) {
-                            await vscode.window.tabGroups.close(tabs[index]);
-                        }*/
+                        await vscode.commands.executeCommand(`workbench.action.closeActiveEditor`);
                     }
                 }
             }
         }
-        return new Promise((resolve) => { resolve("test_resolved"); });
+        return new Promise((resolve) => { resolve(`test_resolved`); });
     }
 
     function print_selections(selections: vscode.Selection[] | readonly vscode.Selection[]) {
         let out: string[] = [];
         for (let selection of selections) {
-            out.push("({" + selection.anchor.line + "," + selection.anchor.character + "},{" + selection.active.line + "," + selection.active.character + "})");
+            out.push(`({${selection.anchor.line},${selection.anchor.character}},{${selection.active.line},${selection.active.character}})`);
         }
-        console.log(out.join(', '));
+        console.log(out.join(`, `));
     }
 });
